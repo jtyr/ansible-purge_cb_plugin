@@ -1,0 +1,4 @@
+---
+
+yumrepo_params:
+  reposdir: /tmp/yum.repos.d2

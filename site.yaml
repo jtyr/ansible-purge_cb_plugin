@@ -1,0 +1,54 @@
+---
+
+- name: Initial Play
+  hosts: all
+  vars:
+    _purge_enabled: yes
+    _purge_modules:
+      - yum_repository
+    _purge_module_options:
+      yum_repository:
+        ignore_files:
+          - /tmp/yum.repos.d/repo1.repo
+  tasks:
+    - debug:
+        msg: Purge {{ "enabled" if _purge_enabled else "disabled" }}
+
+- name: Testing Play 1
+  hosts: localhost1
+  tasks:
+    - name: Create repo1.1
+      yum_repository:
+        file: repo11
+        name: repo1.1
+        description: Repo 1.1
+        baseurl: http://example.com/repo1.1
+        params: "{{ yumrepo_params }}"
+
+    - name: Create repo1.2
+      yum_repository:
+        file: repo12
+        name: repo1.2
+        description: Repo 1.2
+        baseurl: http://example.com/repo1.2
+        params: "{{ yumrepo_params }}"
+
+- name: Testing Play 2
+  hosts: localhost2
+  tasks:
+    - name: Create repo2
+      yum_repository:
+        name: repo2
+        description: Repo 2
+        baseurl: http://example.com/repo2
+        params: "{{ yumrepo_params }}"
+
+- name: Testing Play 3
+  hosts: localhost3
+  tasks:
+    - name: Create repo3
+      yum_repository:
+        name: repo3
+        description: Repo 3
+        baseurl: http://example.com/repo3
+        params: "{{ yumrepo_params }}"

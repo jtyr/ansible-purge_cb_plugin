@@ -1,0 +1,8 @@
+[local]
+localhost1
+localhost2
+localhost3
+
+[local:vars]
+ansible_python_interpreter=/usr/bin/env python2
+ansible_connection=local
